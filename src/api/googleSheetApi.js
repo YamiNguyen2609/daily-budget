@@ -45,15 +45,20 @@ async function fetchGoogleSheetDataOverview() {
 }
 
 export async function GetDataOverview(month, year) {
+    console.log("month", month);
     const data = await fetchGoogleSheetDataOverview();
-    var columns = data[0].slice(1);
-    var result = []; 
-    data.forEach(element => {
-        var item = { title: element[0] }
-        for(var i = 0; i < columns.length; i++) {
-            item[columns[i]] = element[i+1];
+    var columns = data[0];
+    var result = {};
+    console.log("data", data);
+    for(var i = 1; i < columns.length; i++) {
+        let item = [];
+        for(var j = 1; j < data.length; j++) {
+            var row = data[j];
+            item.push({"name": row[0], "value": row[i]});
         }
-        result.push(item);
-    });
-    console.log(result);
+        result[columns[i]] = item;
+    }
+    console.log("result", result);
+    console.log("result1", result[month]);
+    return result[month];
 }

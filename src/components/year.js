@@ -11,7 +11,7 @@ const Year = ({ initialYear = 2025 }) => {
   }
 
   return (
-    <div class="dropdown col-6">
+    <div className="dropdown col-12 my-2">
       <select id="yearcmp"
         className="form-select"
         value={yearSelected}
