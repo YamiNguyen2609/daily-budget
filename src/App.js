@@ -1,11 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/header';
 import Year from './components/year';
 import Month from './components/month';
 import PanelOverview from './components/panelOverview';
+import { GetDataOverview } from "./api/googleSheetApi";
 
 function App() {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    debugger
+    const getData = async () => {
+      try {
+        const values = await GetDataOverview();
+        setData(values);
+      } catch (err) {
+        setError("Không thể tải dữ liệu.");
+      }
+    };
+
+    getData();
+  }, []);
+
   return (
     <div>
       <Header />
